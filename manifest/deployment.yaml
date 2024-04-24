@@ -1,0 +1,38 @@
+# File: deployment.yaml
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: devops-assignment-deployment
+  labels:
+    app: devops-assignment
+  namespace: default
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: devops-assignment
+  template:
+    metadata:
+      labels:
+        app: devops-assignment
+    spec:
+      containers:
+      - name: devops-assignment-container
+        image: badfella/devops-assignment
+        ports:
+        - containerPort: 8000
+---
+# Nodeport service to expose the application
+apiVersion: v1
+kind: Service
+metadata:
+  name: devops-assignment-service
+  namespace: default
+spec:
+  selector:
+    app: devops-assignment
+  ports:
+    - protocol: TCP
+      port: 8000
+      targetPort: 8000 
+  type: NodePort
