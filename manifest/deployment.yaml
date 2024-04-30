@@ -43,7 +43,7 @@ spec:
     spec:
       containers:
       - name: devops-assignment
-        image: devops-assignment:latest
+        image: badfella/devops-assignment:latest
         ports:
         - containerPort: 8000
 ---
